@@ -9,6 +9,7 @@
         }
       ],
       "dest": "obj/api",
+      "filter": "filter.yml",
       "properties": { "TargetFramework": "netstandard2.0" }
     }
   ],
