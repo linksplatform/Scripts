@@ -1,5 +1,3 @@
 apiRules:
 - exclude:
-    uidRegex: Tests$
-- exclude:
-    uidRegex: Tests\.[A-Za-z]+$
+    uidRegex: (Tests|Benchmarks)(\.[A-Za-z]+)?$
