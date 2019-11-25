@@ -6,8 +6,8 @@ sudo apt install nuget
 # Settings
 TARGET_BRANCH="gh-pages"
 SHA=$(git rev-parse --verify HEAD)
-COMMIT_USER_NAME="linksplatform-docs"
-COMMIT_USER_EMAIL="konard@yandex.ru"
+COMMIT_USER_NAME="linksplatform"
+COMMIT_USER_EMAIL="drakonard@gmail.com"
 REPOSITORY="github.com/linksplatform/$REPOSITORY_NAME"
 
 # Insert repository name into DocFX's configuration files
@@ -40,7 +40,7 @@ cp README.html index.html
 git config user.name "$COMMIT_USER_NAME"
 git config user.email "$COMMIT_USER_EMAIL"
 git remote rm origin
-git remote add origin "https://$COMMIT_USER_NAME:$TOKEN@$REPOSITORY.git"
+git remote add origin "https://linksplatform:$GITHUB_TOKEN@$REPOSITORY.git"
 
 # Commit the "changes", i.e. the new version.
 # The delta will show diffs between new and old versions.
@@ -48,7 +48,7 @@ git add --all
 git commit -m "Deploy to GitHub Pages: $SHA"
 
 # Now that we're all set up, we can push.
-git push "https://$COMMIT_USER_NAME:$TOKEN@$REPOSITORY.git" "$TARGET_BRANCH"
+git push "https://linksplatform:$GITHUB_TOKEN@$REPOSITORY.git" "$TARGET_BRANCH"
 cd ..
 
 # Clean up
