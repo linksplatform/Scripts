@@ -7,7 +7,7 @@ sudo apt install nuget
 TARGET_BRANCH="gh-pages"
 SHA=$(git rev-parse --verify HEAD)
 COMMIT_USER_NAME="linksplatform"
-COMMIT_USER_EMAIL="drakonard@gmail.com"
+COMMIT_USER_EMAIL="linksplatformtechnologies@gmail.com"
 REPOSITORY="github.com/linksplatform/$REPOSITORY_NAME"
 
 # Insert repository name into DocFX's configuration files
