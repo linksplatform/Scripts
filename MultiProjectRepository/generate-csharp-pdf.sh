@@ -5,7 +5,7 @@ sudo apt update
 sudo apt-get install -y texlive texlive-lang-cyrillic texlive-latex-extra python-pygments ghostscript
 
 # Generate tex file
-bash format-document.sh > document.tex
+bash format-csharp-document.sh > document.tex
 
 # Generate pdf
 latex -shell-escape document.tex
