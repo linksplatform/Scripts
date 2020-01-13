@@ -5,7 +5,7 @@
         {
           "files": [ "**/*.sln" ],
           "exclude": [ "**/bin/**", "**/obj/**" ],
-          "src": ""
+          "src": "csharp/"
         }
       ],
       "dest": "obj/api",

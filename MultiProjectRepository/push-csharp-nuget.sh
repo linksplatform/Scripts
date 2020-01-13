@@ -5,7 +5,7 @@ set -e # Exit with nonzero exit code if anything fails
 dotnet pack -c Release
 
 # Get version string
-PackageFileNamePrefix="Platform.$REPOSITORY_NAME/bin/Release/Platform.$REPOSITORY_NAME."
+PackageFileNamePrefix="csharp/Platform.$REPOSITORY_NAME/bin/Release/Platform.$REPOSITORY_NAME."
 PackageFileNameSuffix=".nupkg"
 PackageFileName=$(echo "$PackageFileNamePrefix"*"$PackageFileNameSuffix")
 Version="${PackageFileName#$PackageFileNamePrefix}"
