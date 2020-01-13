@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e # Exit with nonzero exit code if anything fails
 
-sudo apt install nuget
+sudo apt-get install nuget
 
 # Settings
 TARGET_BRANCH="gh-pages"
