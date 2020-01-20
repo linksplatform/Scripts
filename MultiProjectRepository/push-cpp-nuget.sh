@@ -30,9 +30,6 @@ mkdir -p "$LibNativeIncludeDirectory"
 find "cpp/Platform.$REPOSITORY_NAME" -maxdepth 1 -name \*.h -exec cp {} "$LibNativeIncludeDirectory/" \;
 find "cpp/Platform.$REPOSITORY_NAME" -maxdepth 1 -name \*.cpp -exec cp {} "$LibNativeIncludeDirectory/" \;
 
-# Debug output
-ls "$LibNativeIncludeDirectory/"
-
 # Pack NuGet package
 nuget pack "$PackageSpecFileName"
 
