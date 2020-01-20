@@ -25,8 +25,8 @@ LibNativeIncludeDirectory="cpp/Platform.$REPOSITORY_NAME/NuGetPackageSource/lib/
 mkdir -p "$LibNativeIncludeDirectory"
 
 # Copy files
-find "./cpp/Platform.$REPOSITORY_NAME" -name \*.h -exec cp {} "./$LibNativeIncludeDirectory/" \;
-find "./cpp/Platform.$REPOSITORY_NAME" -name \*.cpp -exec cp {} "./$LibNativeIncludeDirectory/" \;
+find "cpp/Platform.$REPOSITORY_NAME" -maxdepth 1 -name \*.h -exec cp {} "$LibNativeIncludeDirectory/" \;
+find "cpp/Platform.$REPOSITORY_NAME" -maxdepth 1 -name \*.cpp -exec cp {} "$LibNativeIncludeDirectory/" \;
 
 # Pack NuGet package
 nuget pack "$PackageSpecFileName"
