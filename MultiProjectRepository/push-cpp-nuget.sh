@@ -3,8 +3,10 @@ set -e # Exit with nonzero exit code if anything fails
 
 sudo apt-get install nuget
 
+PathToPackageSource="cpp/Platform.$REPOSITORY_NAME/NuGetPackageSource"
+
 # Get version string
-PackageSpecFileNamePrefix="cpp/Platform.$REPOSITORY_NAME/NuGetPackageSource/Platform.$REPOSITORY_NAME.TemplateLibrary."
+PackageSpecFileNamePrefix="$PathToPackageSource/Platform.$REPOSITORY_NAME.TemplateLibrary."
 PackageSpecFileNameSuffix=".nuspec"
 PackageSpecFileName=$(echo "$PackageSpecFileNamePrefix"*"$PackageSpecFileNameSuffix")
 Version="${PackageSpecFileName#$PackageSpecFileNamePrefix}"
@@ -21,7 +23,7 @@ if [ "${StatusContents[1]}" == "200" ]; then
 fi
 
 # Ensure target directory exists
-LibNativeIncludeDirectory="cpp/Platform.$REPOSITORY_NAME/NuGetPackageSource/lib/native/include"
+LibNativeIncludeDirectory="$PathToPackageSource/lib/native/include"
 mkdir -p "$LibNativeIncludeDirectory"
 
 # Copy files
@@ -31,8 +33,14 @@ find "cpp/Platform.$REPOSITORY_NAME" -maxdepth 1 -name \*.cpp -exec cp {} "$LibN
 # Debug output
 ls "$LibNativeIncludeDirectory/"
 
+cd $PathToPackageSource
+
+PackageSpecFileNameWithoutFolderPath="${PackageSpecFileName#$PathToPackageSource/}"
+
 # Pack NuGet package
-nuget pack "$PackageSpecFileName"
+nuget pack "$PackageSpecFileNameWithoutFolderPath"
+
+cd ../../..
 
 # Push NuGet package
 nuget push ./**/*.nupkg -NoSymbols -Source https://api.nuget.org/v3/index.json -ApiKey "${NUGETTOKEN}" 
