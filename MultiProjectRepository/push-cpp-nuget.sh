@@ -33,14 +33,8 @@ find "cpp/Platform.$REPOSITORY_NAME" -maxdepth 1 -name \*.cpp -exec cp {} "$LibN
 # Debug output
 ls "$LibNativeIncludeDirectory/"
 
-cd $PathToPackageSource
-
-PackageSpecFileNameWithoutFolderPath="${PackageSpecFileName#$PathToPackageSource/}"
-
 # Pack NuGet package
-nuget pack "$PackageSpecFileNameWithoutFolderPath"
-
-cd ../../..
+nuget pack "$PackageSpecFileName"
 
 # Push NuGet package
 nuget push ./**/*.nupkg -NoSymbols -Source https://api.nuget.org/v3/index.json -ApiKey "${NUGETTOKEN}" 
