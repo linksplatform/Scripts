@@ -18,11 +18,10 @@ NuGetPageStatus="$(curl -Is "$NuGetPackageUrl" | head -1)"
 StatusContents=( $NuGetPageStatus )
 if [ "${StatusContents[1]}" == "200" ]; then
   echo "NuGet with current version is already pushed."
-  exit 0
+else
+  # Push NuGet package
+  dotnet nuget push ./**/*.nupkg -s https://api.nuget.org/v3/index.json -k "${NUGETTOKEN}" 
 fi
-
-# Push NuGet package
-dotnet nuget push ./**/*.nupkg -s https://api.nuget.org/v3/index.json -k "${NUGETTOKEN}" 
 
 # Clean up
 find . -type f -name '*.nupkg' -delete
