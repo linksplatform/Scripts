@@ -26,12 +26,12 @@ git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
 
 # Clean out existing contents
-rm -rf out/**/* || exit 0
+rm -rf out/csharp/**/* || exit 0
 
 # Copy genereted docs site
-cp -r _site/* out
+cp -r _site/* out/csharp
 
-cd out || exit
+cd out/csharp || exit
 
 # Do not use index.md
 cp README.html index.html
