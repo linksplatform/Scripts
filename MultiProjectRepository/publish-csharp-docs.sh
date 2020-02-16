@@ -25,6 +25,8 @@ cd out || exit
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
 
+mkdir out/csharp
+
 # Clean out existing contents
 rm -rf out/csharp/**/* || exit 0
 
