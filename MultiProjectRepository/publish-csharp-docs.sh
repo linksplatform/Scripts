@@ -25,13 +25,13 @@ cd out || exit
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
 
-mkdir out/csharp
+mkdir -p out/csharp
 
 # Clean out existing contents
 rm -rf out/csharp/**/* || exit 0
 
 # Copy genereted docs site
-cp -r _site/* out/csharp
+cp -r _site/* out/csharp/
 
 cd out/csharp || exit
 
