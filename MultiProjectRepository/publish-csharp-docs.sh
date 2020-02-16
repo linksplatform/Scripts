@@ -36,6 +36,9 @@ cd out/csharp || exit
 # Do not use index.md
 cp README.html index.html
 
+# Enter repository's folder
+cd ..
+
 # Now let's go have some fun with the cloned repo
 git config user.name "$COMMIT_USER_NAME"
 git config user.email "$COMMIT_USER_EMAIL"
