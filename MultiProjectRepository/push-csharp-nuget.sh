@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e # Exit with nonzero exit code if anything fails
 
+CSHARP_PACKAGE_VERSION=$(<CSHARP_PACKAGE_VERSION.txt)
+
 # Ensure NuGet package does not exist
 NuGetPackageUrl="https://globalcdn.nuget.org/packages/Platform.$REPOSITORY_NAME.$CSHARP_PACKAGE_VERSION.nupkg"
 NuGetPackageUrl=$(echo "$NuGetPackageUrl" | tr '[:upper:]' '[:lower:]')

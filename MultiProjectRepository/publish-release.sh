@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e # Exit with nonzero exit code if anything failss
 
+CSHARP_PACKAGE_VERSION=$(<CSHARP_PACKAGE_VERSION.txt)
+CSHARP_PACKAGE_RELEASE_NOTES=$(<CSHARP_PACKAGE_RELEASE_NOTES.txt)
+
 TAG_ID=$(curl --request GET --url "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tags/${CSHARP_PACKAGE_VERSION}" --header "authorization: Bearer ${GITHUB_TOKEN}" | jq -r '.id')
 
 if [ "$TAG_ID" != "null" ]; then
