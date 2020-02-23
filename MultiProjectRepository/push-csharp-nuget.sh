@@ -1,15 +1,8 @@
 #!/bin/bash
 set -e # Exit with nonzero exit code if anything fails
 
-# Get version string
-PackageFileNamePrefix="csharp/Platform.$REPOSITORY_NAME/bin/Release/Platform.$REPOSITORY_NAME."
-PackageFileNameSuffix=".nupkg"
-PackageFileName=$(echo "$PackageFileNamePrefix"*"$PackageFileNameSuffix")
-Version="${PackageFileName#$PackageFileNamePrefix}"
-Version="${Version%$PackageFileNameSuffix}"
-
 # Ensure NuGet package does not exist
-NuGetPackageUrl="https://globalcdn.nuget.org/packages/Platform.$REPOSITORY_NAME.$Version$PackageFileNameSuffix"
+NuGetPackageUrl="https://globalcdn.nuget.org/packages/Platform.$REPOSITORY_NAME.$CSHARP_PACKAGE_VERSION.nupkg"
 NuGetPackageUrl=$(echo "$NuGetPackageUrl" | tr '[:upper:]' '[:lower:]')
 
 NuGetPageStatus="$(curl -Is "$NuGetPackageUrl" | head -1)"

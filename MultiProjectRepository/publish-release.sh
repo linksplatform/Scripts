@@ -1,14 +1,7 @@
 #!/bin/bash
-set -e # Exit with nonzero exit code if anything fails
+set -e # Exit with nonzero exit code if anything failss
 
-sudo apt-get install xmlstarlet
-
-PROJECT_PATH="csharp/Platform.$REPOSITORY_NAME/Platform.$REPOSITORY_NAME.csproj"
-
-PACKAGE_VERSION=$(xmlstarlet sel -t -m '//VersionPrefix[1]' -v . -n <"$PROJECT_PATH")
-PACKAGE_RELEASE_NOTES=$(xmlstarlet sel -t -m '//PackageReleaseNotes[1]' -v . -n <"$PROJECT_PATH")
-
-TAG_ID=$(curl --request GET --url "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tags/${PACKAGE_VERSION}" --header "authorization: Bearer ${GITHUB_TOKEN}" | jq -r '.id')
+TAG_ID=$(curl --request GET --url "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tags/${CSHARP_PACKAGE_VERSION}" --header "authorization: Bearer ${GITHUB_TOKEN}" | jq -r '.id')
 
 if [ "$TAG_ID" != "null" ]; then
     echo "Release with the same tag already published."
@@ -18,7 +11,7 @@ fi
 SEPARATOR="
 
 "
-PACKAGE_RELEASE_NOTES_STRING=$(jq -saR . <<< "https://www.nuget.org/packages/Platform.$REPOSITORY_NAME/$PACKAGE_VERSION$SEPARATOR$PACKAGE_RELEASE_NOTES")
+PACKAGE_RELEASE_NOTES_STRING=$(jq -saR . <<< "https://www.nuget.org/packages/Platform.$REPOSITORY_NAME/$CSHARP_PACKAGE_VERSION$SEPARATOR$CSHARP_PACKAGE_RELEASE_NOTES")
 echo $PACKAGE_RELEASE_NOTES_STRING
 
 curl --request POST \
@@ -26,9 +19,9 @@ curl --request POST \
 --header "authorization: Bearer ${GITHUB_TOKEN}" \
 --header 'content-type: application/json' \
 --data "{
-  \"tag_name\": \"${PACKAGE_VERSION}\",
+  \"tag_name\": \"${CSHARP_PACKAGE_VERSION}\",
   \"target_commitish\": \"${DEFAULT_BRANCH}\",
-  \"name\": \"${PACKAGE_VERSION}\",
+  \"name\": \"${CSHARP_PACKAGE_VERSION}\",
   \"body\": $PACKAGE_RELEASE_NOTES_STRING,
   \"draft\": false,
   \"prerelease\": false
