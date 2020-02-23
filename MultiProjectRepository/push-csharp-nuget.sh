@@ -14,6 +14,10 @@ Version="${Version%$PackageFileNameSuffix}"
 # Ensure NuGet package does not exist
 NuGetPackageUrl="https://globalcdn.nuget.org/packages/Platform.$REPOSITORY_NAME.$Version$PackageFileNameSuffix"
 NuGetPackageUrl=$(echo "$NuGetPackageUrl" | tr '[:upper:]' '[:lower:]')
+
+# URL output for debug
+echo "$NuGetPackageUrl"
+
 NuGetPageStatus="$(curl -Is "$NuGetPackageUrl" | head -1)"
 StatusContents=( $NuGetPageStatus )
 if [ "${StatusContents[1]}" == "200" ]; then
