@@ -2,8 +2,8 @@
 set -e # Exit with nonzero exit code if anything fails
 
 # Remove auto-generated code files
-find "./csharp/Platform.$REPOSITORY_NAME/obj" -type f -iname "*.cs" -delete>/dev/null
-find "./csharp/Platform.$REPOSITORY_NAME.Tests/obj" -type f -iname "*.cs" -delete>/dev/null
+find "./csharp/Platform.$REPOSITORY_NAME/obj" -type f -iname "*.cs" -delete 2>/dev/null
+find "./csharp/Platform.$REPOSITORY_NAME.Tests/obj" -type f -iname "*.cs" -delete 2>/dev/null
 
 # Download fvextra package
 wget https://raw.githubusercontent.com/gpoore/fvextra/cc1c0c5f7b92023cfec67084e2a87bdac520414c/fvextra/fvextra.sty
