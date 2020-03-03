@@ -3,13 +3,13 @@ set -e # Exit with nonzero exit code if anything fails
 
 sudo apt-get install nuget
 
-PathToPackageSource="cpp/Platform.$REPOSITORY_NAME"
+##PathToPackageSource="cpp/Platform.$REPOSITORY_NAME"
 
 # Get version string
 #PackageSpecFileNamePrefix="$PathToPackageSource/Platform.$REPOSITORY_NAME.TemplateLibrary."
 #PackageSpecFileNameSuffix=".nuspec"
 #PackageSpecFileName=$(echo "$PackageSpecFileNamePrefix"*"$PackageSpecFileNameSuffix")
-PackageSpecFileName="$PathToPackageSource/Platform.$REPOSITORY_NAME.TemplateLibrary.nuspec"
+##PackageSpecFileName="$PathToPackageSource/Platform.$REPOSITORY_NAME.TemplateLibrary.nuspec"
 #Version="${PackageSpecFileName#$PackageSpecFileNamePrefix}"
 #Version="${Version%$PackageSpecFileNameSuffix}"
 
@@ -24,7 +24,7 @@ PackageSpecFileName="$PathToPackageSource/Platform.$REPOSITORY_NAME.TemplateLibr
 #fi
 
 # Pack NuGet package
-nuget pack "$PackageSpecFileName"
+nuget pack "cpp/Platform.$REPOSITORY_NAME/Platform.$REPOSITORY_NAME.TemplateLibrary.nuspec"
 
 # Push NuGet package
 nuget push ./**/*.nupkg -NoSymbols -Source https://api.nuget.org/v3/index.json -ApiKey "${NUGETTOKEN}" 
