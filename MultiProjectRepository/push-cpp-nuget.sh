@@ -9,7 +9,7 @@ PathToPackageSource="cpp/Platform.$REPOSITORY_NAME"
 #PackageSpecFileNamePrefix="$PathToPackageSource/Platform.$REPOSITORY_NAME.TemplateLibrary."
 #PackageSpecFileNameSuffix=".nuspec"
 #PackageSpecFileName=$(echo "$PackageSpecFileNamePrefix"*"$PackageSpecFileNameSuffix")
-PackageSpecFileName="$PathToPackageSource/$Platform.$REPOSITORY_NAME.TemplateLibrary.nuspec"
+PackageSpecFileName="$PathToPackageSource/Platform.$REPOSITORY_NAME.TemplateLibrary.nuspec"
 #Version="${PackageSpecFileName#$PackageSpecFileNamePrefix}"
 #Version="${Version%$PackageSpecFileNameSuffix}"
 
