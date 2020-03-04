@@ -10,6 +10,7 @@ CSHARP_PACKAGE_RELEASE_NOTES=$(<CSHARP_PACKAGE_RELEASE_NOTES.txt)
 CSHARP_PACKAGE_URL="https://www.nuget.org/packages/Platform.$REPOSITORY_NAME/$CSHARP_PACKAGE_VERSION"
 
 TAG_BUFFER="$CSHARP_PACKAGE_VERSION"
+NAME_BUFFER="[C#] $CSHARP_PACKAGE_VERSION"
 PACKAGE_RELEASE_NOTES_STRING_BUFFER="$CSHARP_PACKAGE_URL$SEPARATOR$CSHARP_PACKAGE_RELEASE_NOTES"
 
 if [ -f "CPP_PACKAGE_VERSION.txt" ]; then
@@ -18,6 +19,7 @@ if [ -f "CPP_PACKAGE_VERSION.txt" ]; then
     CPP_PACKAGE_URL="https://www.nuget.org/packages/Platform.$REPOSITORY_NAME.TemplateLibrary/$CPP_PACKAGE_VERSION"
 
     TAG_BUFFER="$TAG_BUFFER_$CPP_PACKAGE_VERSION"
+    NAME_BUFFER="$NAME_BUFFER, [C++] $CPP_PACKAGE_VERSION"
     PACKAGE_RELEASE_NOTES_STRING_BUFFER="$PACKAGE_RELEASE_NOTES_STRING_BUFFER$SEPARATOR$SEPARATOR$CPP_PACKAGE_URL$SEPARATOR$CPP_PACKAGE_RELEASE_NOTES"
 fi
 
@@ -36,9 +38,9 @@ curl --request POST \
 --header "authorization: Bearer ${GITHUB_TOKEN}" \
 --header 'content-type: application/json' \
 --data "{
-  \"tag_name\": \"${CSHARP_PACKAGE_VERSION}\",
+  \"tag_name\": \"${TAG_BUFFER}\",
   \"target_commitish\": \"${DEFAULT_BRANCH}\",
-  \"name\": \"${CSHARP_PACKAGE_VERSION}\",
+  \"name\": \"${NAME_BUFFER}\",
   \"body\": $PACKAGE_RELEASE_NOTES_STRING,
   \"draft\": false,
   \"prerelease\": false
