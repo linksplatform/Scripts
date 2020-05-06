@@ -15,7 +15,7 @@ sed -i "s/\$REPOSITORY_NAME/$REPOSITORY_NAME/g" toc.yml
 sed -i "s/\$REPOSITORY_NAME/$REPOSITORY_NAME/g" docfx.json
 
 # DocFX installation
-nuget install docfx.console
+nuget install docfx.console -Version 2.51
 mono $(echo ./*docfx.console.*)/tools/docfx.exe docfx.json
 
 # Clone the existing gh-pages for this repo into out/
