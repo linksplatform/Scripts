@@ -44,10 +44,10 @@ printf """
 """
 
 # Project files
-find "./csharp/Platform.$REPOSITORY_NAME" -type f -iname '*.cs' | sort -b | python format-csharp-files.py
+find "./csharp/Platform.$REPOSITORY_NAME" -type f -iname '*.cs' | sort -b | python2 format-csharp-files.py
 
 # Tests files
-find "./csharp/Platform.$REPOSITORY_NAME.Tests" -type f -iname '*.cs' | sort -b | python format-csharp-files.py
+find "./csharp/Platform.$REPOSITORY_NAME.Tests" -type f -iname '*.cs' | sort -b | python2 format-csharp-files.py
 
 printf """
 \\\printindex
