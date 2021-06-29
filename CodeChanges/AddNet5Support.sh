@@ -13,4 +13,4 @@ find . -type f -name "*.csproj" -print0 | xargs -0 sed -i -e 's|netstandard2\.1<
 find . -type f -name "*.csproj" -print0 | xargs -0 sed -i -e 's|<TargetFramework>netcoreapp3\.1<\/TargetFramework>|<TargetFramework>net5<\/TargetFramework>|g'
 
 # Remove .github folder from .gitignore
-find . -type f -name ".gitignore" -print0 | xargs -0 sed -i -z -e 's|\n# GitHub refuses chages to .github folder at the moment\n.github\/\n||g'
+find . -type f -name ".gitignore" -print0 | xargs -0 sed -i -z -e 's|\n# GitHub refuses chages to \.github folder at the moment\n\.github\/\n||g'
