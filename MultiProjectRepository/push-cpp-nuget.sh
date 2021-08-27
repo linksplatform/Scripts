@@ -21,7 +21,7 @@ fi
 wget -O "$CPP_PACKAGE_NUSPEC_DIRECTORY/icon.png" https://raw.githubusercontent.com/linksplatform/Documentation/18469f4d033ee9a5b7b84caab9c585acab2ac519/doc/Avatar-rainbow-icon-64x64.png
 
 # Download TemplateLibrary.targets for the package
-wget -O "$CPP_PACKAGE_NUSPEC_DIRECTORY/$REPOSITORY_NAME.TemplateLibrary.targets" https://raw.githubusercontent.com/linksplatform/Files/ed0dc702f52d56d80ea2f19c93df5cf2fdcbccbf/TemplateLibrary.targets
+wget -O "$CPP_PACKAGE_NUSPEC_DIRECTORY/Platform.$REPOSITORY_NAME.TemplateLibrary.targets" https://raw.githubusercontent.com/linksplatform/Files/ed0dc702f52d56d80ea2f19c93df5cf2fdcbccbf/TemplateLibrary.targets
 
 # Pack NuGet package
 nuget pack "$CPP_PACKAGE_NUSPEC_PATH"
