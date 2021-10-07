@@ -1,0 +1,1 @@
+find . -name *.cs -exec perl -0777pi -e 's~(/{3}.+(\r|\n|\s)+)+(private|class)~private~gm' {}  \;default_branch=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p');for subdirectory in ./*/; do printf "Repository name: ${subdirectory}"; cd $subdirectory; git switch $default_branch; git commit -m "Update XML Doc"; git push origin $default_branch; git st; cd ..; done;
