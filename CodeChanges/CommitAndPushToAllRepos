@@ -1,1 +1,2 @@
-default_branch=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p');for subdirectory in ./*/; do printf "Repository name: ${subdirectory}"; cd $subdirectory; git switch $default_branch; git commit -m "Message"; git push origin $default_branch; cd ..; done;
+# Make sure you are in the default branch
+default_branch=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p');for subdirectory in ./*/; do printf "Repository name: ${subdirectory}"; cd $subdirectory; git commit -m "Message"; git push origin $default_branch; cd ..; done;
