@@ -2,9 +2,9 @@
 
 for subdirectory in ./*/
 do
-  default_branch=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p');
-  printf "Repository name: ${subdirectory}";
   cd $subdirectory;
+  printf "Repository name: ${subdirectory}";
+  default_branch=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p');  
   git switch $default_branch;
   cd ..;
 done;
