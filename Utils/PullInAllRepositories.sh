@@ -1,15 +1,18 @@
 #!/bin/bash
 
-switch(){
+# Change these values
+remote_name="origin";
+branch_name="branch_name";
+
+pull() {
   cd $subdirectory;
   printf "Repository name: ${subdirectory}\n";
-  default_branch=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p');  
-  git switch $default_branch;
+  git pull ${remote_name} ${branch_name};
   cd ..;
 }
 
 for subdirectory in ./*/
 do
-  switch &
+  pull &
 done;
 wait;
