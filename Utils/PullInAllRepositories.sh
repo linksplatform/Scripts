@@ -6,7 +6,7 @@ branch_name="branch_name";
 
 pull() {
   cd $subdirectory;
-  printf "Repository name: ${subdirectory}";
+  printf "Repository name: ${subdirectory}\n";
   git pull ${remote_name} ${branch_name};
   cd ..;
 }
