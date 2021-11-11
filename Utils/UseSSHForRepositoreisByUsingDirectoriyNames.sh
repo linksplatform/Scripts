@@ -9,4 +9,4 @@ do
   git remote add origin git@github.com:linksplatform/${repository_name}.git;
   printf "\n${repository_name} - Done\n";
   cd ..;
-done
+done;
