@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 for subdirectory in ./*/
 do
   cd ${subdirectory};
