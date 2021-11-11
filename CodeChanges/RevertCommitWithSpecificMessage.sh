@@ -15,3 +15,4 @@ for subdirectory in ./*/;
 do
   revert &
 done;
+wait;
