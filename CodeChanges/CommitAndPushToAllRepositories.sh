@@ -16,3 +16,4 @@ for subdirectory in ./*/;
 do
   commit_and_push &
 done;
+wait;
