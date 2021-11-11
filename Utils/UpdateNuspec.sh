@@ -15,10 +15,6 @@ then
 	exit 0#Success code.
 fi
 
-if [ '$#' = 1 ] #If parameter is setted.
-then
-	cd $1
-fi
 files=$(find *.h)
 filename=$(find *.nuspec)
 file=() #Initialize array
