@@ -15,8 +15,8 @@ then
 	exit 0#Success code.
 fi
 
-files=$(find *.h)
-filename=$(find *.nuspec)
+files=$(find ./*.h)
+filename=$(find ./*.nuspec)
 file=() #Initialize array
 while IFS= read -r line #Read file to string "targets" and append to array.
 do 
