@@ -1,21 +1,6 @@
 #!/bin/bash
 
-if [[ "$1" = "-h" ]] # Help Documentation.
-then 
-	echo "This is script update old .nuspec file."
-	echo ""
-	echo "Usage:"
-	echo "UpdateNuspec.sh <Path to files for update>"
-	echo ""
-	echo "EXAMPLE:"
-	echo "UpdateNuspec.sh"
-	#echo "	OR"
-	#echo "UpdateNuspec.sh dir/files"
-	
-	exit 0#Success code.
-fi
-
-files=$(find ./*.h)
+files=$(find . | grep "\.h" | cut -c 3-)
 filename=$(find ./*.nuspec)
 file=() #Initialize array
 while IFS= read -r line #Read file to string "targets" and append to array.
@@ -26,7 +11,7 @@ do
 		break
 		fi
 done < "$filename" #Read .nuspec file
-IFS=$'\n' #Separator is standard.
+IFS=$'\n' #Set Separator.
 for FILE in $files #Get all files on directory.
 do
 	file+=("    <file src=\"$FILE\" target=\"lib\\native\\include\\$FILE\" />") #Append new files to array.
