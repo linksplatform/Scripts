@@ -24,7 +24,7 @@ wget -O "$CPP_PACKAGE_NUSPEC_DIRECTORY/icon.png" https://raw.githubusercontent.c
 wget -O "$CPP_PACKAGE_NUSPEC_DIRECTORY/Platform.$REPOSITORY_NAME.TemplateLibrary.targets" https://raw.githubusercontent.com/linksplatform/Files/ed0dc702f52d56d80ea2f19c93df5cf2fdcbccbf/TemplateLibrary.targets
 
 # Update .nuspec file
-files=$(find $(dirname $CPP_PACKAGE_NUSPEC_PATH) | grep "\.h" | cut -c $(( $(echo $(dirname $CPP_PACKAGE_NUSPEC_PATH) | wc -m) + 1))-)
+files=$(find $(dirname $CPP_PACKAGE_NUSPEC_PATH) | grep "\.h" | grep -v "bin" | grep -v "obj" | cut -c $(( $(echo $(dirname $CPP_PACKAGE_NUSPEC_PATH) | wc -m) + 1))-)
 filename="$CPP_PACKAGE_NUSPEC_PATH"
 file=() #Initialize array
 while IFS= read -r line #Read file to string "targets" and append to array.
@@ -38,10 +38,7 @@ done < "$filename" #Read .nuspec file
 IFS=$'\n' #Set Separator.
 for FILE in $files #Get all files on directory.
 do
-	if [[ $FILE != *"bin"* ]] || [[ $FILE != *"obj"* ]]
-	then
-		file+=("    <file src=\"$FILE\" target=\"lib\\native\\include\\$FILE\" />") #Append new files to array.
-	fi
+	file+=("    <file src=\"$FILE\" target=\"lib\\native\\include\\$FILE\" />") #Append new files to array.
 done
 file+=("  </files>") #Append end for tag files.
 file+=("</package>") #Append end for tag package.
