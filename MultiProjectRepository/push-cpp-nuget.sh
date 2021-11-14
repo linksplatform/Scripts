@@ -38,7 +38,7 @@ done < "$filename" #Read .nuspec file
 IFS=$'\n' #Set Separator.
 for FILE in $files #Get all files on directory.
 do
-	if [[ $line != *"bin"* ]] || [[ $line != *"obj"* ]]
+	if [[ $FILE != *"bin"* ]] || [[ $FILE != *"obj"* ]]
 	then
 		file+=("    <file src=\"$FILE\" target=\"lib\\native\\include\\$FILE\" />") #Append new files to array.
 	fi
