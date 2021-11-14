@@ -26,11 +26,7 @@ wget -O "$CPP_PACKAGE_NUSPEC_DIRECTORY/Platform.$REPOSITORY_NAME.TemplateLibrary
 # Update .nuspec file
 files=$(find $(dirname $CPP_PACKAGE_NUSPEC_PATH) | grep "\.h" | grep -v "bin" | grep -v "obj" | cut -c $(( $(echo $(dirname $CPP_PACKAGE_NUSPEC_PATH) | wc -m) + 1))-)
 filename="$CPP_PACKAGE_NUSPEC_PATH"
-file=() #Initialize array
-while IFS= read -r line #Read file to string "targets" and append to array.
-do 
-	file+=("${line}")
-done < "$filename" #Read .nuspec file.
+file=($(cat $filename)) #Read file by line in array
 unset file[-1] #Remove last element in array.
 file+=("  <files>")
 file+=("    <file src=\"icon.png\" target=\"images/icon.png\" />")
