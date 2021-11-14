@@ -30,11 +30,9 @@ file=() #Initialize array
 while IFS= read -r line #Read file to string "targets" and append to array.
 do 
 	file+=("${line}")
-		if [[ $line == *"<files>"* ]]
-		then
-		break
-		fi
-done < "$filename" #Read .nuspec file
+done < "$filename" #Read .nuspec file.
+unset file[-1] #Remove last element in array.
+file+=("  <files>")
 file+=("    <file src=\"icon.png\" target=\"images/icon.png\" />")
 file+=("    <file src=\"Platform.$REPOSITORY_NAME.TemplateLibrary.targets\" target=\"build\native\Platform.$REPOSITORY_NAME.TemplateLibrary.targets\" />")
 IFS=$'\n' #Set Separator.
