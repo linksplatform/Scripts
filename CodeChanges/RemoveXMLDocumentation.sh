@@ -2,7 +2,7 @@
 
 if [[ "$#" == 0 ]]
 then
-echo "RemoveComments.sh <file>"
+echo "RemoveXMLDocumentation.sh <file>"
 exit 0
 fi
 
