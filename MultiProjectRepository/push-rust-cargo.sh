@@ -11,15 +11,17 @@ RUST_PACKAGE_VERSION=$(head -n 1 RUST_PACKAGE_VERSION.txt)
 CargoPackageUrl="https://crates.io/api/v1/crates/$RUST_PACKAGE_NAME/$RUST_PACKAGE_VERSION/download"
 CargoPageStatus="$(curl -ILs "$CargoPackageUrl")"
 # echo "$CargoPageStatus"
-if echo "$CargoPageStatus" | grep -q "HTTP/2 200"; then
-    echo "Cargo with current version is already pushed."
-    exit 0
+if echo "$CargoPageStatus" | grep -q "HTTP/2 200";
+    then
+      echo "Cargo with current version is already pushed."
+      exit 0
+    else
+      if [ -z "$1" ]
+        then
+          cargo publish
+        else
+          cd $1
+          cargo publish
+      fi
 fi
 
-if [ -z "$1" ]
-  then
-    cargo publish
-  else
-    cd $1
-    cargo publish
-fi
