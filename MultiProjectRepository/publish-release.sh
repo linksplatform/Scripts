@@ -1,19 +1,19 @@
 #!/bin/bash
 
-tag=$1
-release_name=$2
-release_body=$3
+TAG=$1
+RELEASE_NAME=$2
+RELEASE_BODY=$3
 
 echo "Repository name: $REPOSITORY_NAME";
-echo "tag: $tag";
+echo "Tag: $TAG";
 echo "Default branch: $DEFAULT_BRANCH";
-echo "Release name: $release_name";
-echo "Release body: $release_body";
+echo "Release name: $RELEASE_NAME";
+echo "Release body: $RELEASE_BODY";
 
-tag_id=$(curl --request GET --url "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${tag}" --header "authorization: Bearer ${GITHUB_TOKEN}" | jq -r '.id')
+tag_id=$(curl --request GET --url "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${TAG}" --header "authorization: Bearer ${GITHUB_TOKEN}" | jq -r '.id')
 
 if [ "$tag_id" != "null" ]; then
-    echo "Release with the same tag already published."
+    echo "Release with the same TAG already published."
     exit 0
 fi
 
@@ -25,10 +25,10 @@ curl --request POST \
 --header "authorization: Bearer ${GITHUB_TOKEN}" \
 --header 'content-type: application/json' \
 --data "{
-  \"tag_name\": \"${tag}\",
+  \"tag_name\": \"${TAG}\",
   \"target_commitish\": \"${DEFAULT_BRANCH}\",
-  \"name\": \"${release_name}\",
-  \"body\": $release_body,
+  \"name\": \"${RELEASE_NAME}\",
+  \"body\": $RELEASE_BODY,
   \"draft\": false,
   \"prerelease\": false
   }"
