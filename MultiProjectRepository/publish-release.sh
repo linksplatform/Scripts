@@ -10,9 +10,9 @@ echo "Default branch: $DEFAULT_BRANCH";
 echo "Release name: $RELEASE_NAME";
 echo "Release body: $RELEASE_BODY";
 
-tag_id=$(curl --request GET --url "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tags/${TAG}" --header "authorization: Bearer ${GITHUB_TOKEN}" | jq -r '.id')
+TAG_ID=$(curl --request GET --url "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tags/${TAG}" --header "authorization: Bearer ${GITHUB_TOKEN}" | jq -r '.id')
 
-if [ "$tag_id" != "null" ]; then
+if [ "$TAG_ID" != "null" ]; then
     echo "Release with the same TAG already published."
     exit 0
 fi
