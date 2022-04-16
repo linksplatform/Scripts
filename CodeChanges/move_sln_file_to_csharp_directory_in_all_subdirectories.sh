@@ -6,7 +6,6 @@ moveSlnToCsharpDirectoryInAllSubdirectories() {
 	cd ..;
 }
 
-
 for subdirectory in ./*/;
 do
   moveSlnToCsharpDirectoryInAllSubdirectories &
