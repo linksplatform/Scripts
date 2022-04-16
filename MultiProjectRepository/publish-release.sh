@@ -17,8 +17,8 @@ if [ "$tag_id" != "null" ]; then
     exit 0
 fi
 
-PACKAGE_RELEASE_NOTES_STRING=$(jq -saR . <<< "$PACKAGE_RELEASE_NOTES_STRING_BUFFER")
-echo $PACKAGE_RELEASE_NOTES_STRING
+RELEASE_BODY_STRING=$(jq -saR . <<< "$RELEASE_BODY")
+echo "RELEASE_BODY_STRING: $RELEASE_BODY_STRING"
 
 curl --request POST \
 --url "https://api.github.com/repos/$REPOSITORY_NAME/releases" \
@@ -28,7 +28,7 @@ curl --request POST \
   \"tag_name\": \"${TAG}\",
   \"target_commitish\": \"${DEFAULT_BRANCH}\",
   \"name\": \"${RELEASE_NAME}\",
-  \"body\": $RELEASE_BODY,
+  \"body\": $RELEASE_BODY_STRING,
   \"draft\": false,
   \"prerelease\": false
   }"
