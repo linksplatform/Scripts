@@ -4,13 +4,13 @@ TAG=$1
 RELEASE_NAME=$2
 RELEASE_BODY=$3
 
-echo "Repository name: $REPOSITORY_NAME";
+echo "Repository name: $GITHUB_REPOSITORY";
 echo "Tag: $TAG";
 echo "Default branch: $DEFAULT_BRANCH";
 echo "Release name: $RELEASE_NAME";
 echo "Release body: $RELEASE_BODY";
 
-tag_id=$(curl --request GET --url "https://api.github.com/repos/${REPOSITORY_NAME}/releases/tags/${TAG}" --header "authorization: Bearer ${GITHUB_TOKEN}" | jq -r '.id')
+tag_id=$(curl --request GET --url "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tags/${TAG}" --header "authorization: Bearer ${GITHUB_TOKEN}" | jq -r '.id')
 
 if [ "$tag_id" != "null" ]; then
     echo "Release with the same TAG already published."
@@ -21,7 +21,7 @@ RELEASE_BODY_STRING=$(jq -saR . <<< "$RELEASE_BODY")
 echo "RELEASE_BODY_STRING: $RELEASE_BODY_STRING"
 
 curl --request POST \
---url "https://api.github.com/repos/$REPOSITORY_NAME/releases" \
+--url "https://api.github.com/repos/$GITHUB_REPOSITORY/releases" \
 --header "authorization: Bearer ${GITHUB_TOKEN}" \
 --header 'content-type: application/json' \
 --data "{
