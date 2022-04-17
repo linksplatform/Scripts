@@ -11,8 +11,9 @@ then
     exit 1
 fi
 
+PACKAGE_NAME=$(<RUST_PACKAGE_NAME.txt)
 PACKAGE_VERSION=$(<RUST_PACKAGE_VERSION.txt)
-PACKAGE_URL="https://crates.io/crates/doublets/$PACKAGE_VERSION"
+PACKAGE_URL="https://crates.io/crates/$PACKAGE_NAME/$PACKAGE_VERSION"
 
 TAG="rust_$PACKAGE_VERSION"
 RELEASE_NAME="[Rust] $PACKAGE_VERSION"
