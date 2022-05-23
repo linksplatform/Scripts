@@ -16,8 +16,6 @@ fi
 
 echo "The NuGet package does not exist at $NuGetPackageUrl"
 
-cd csharp
-
 # Pack NuGet package
 dotnet pack -c Release
 
