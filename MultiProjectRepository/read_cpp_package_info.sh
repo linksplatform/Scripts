@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e # Exit with nonzero exit code if anything fails
 
-CPP_PACKAGE_NUSPEC_PATH="cpp/Platform.$REPOSITORY_NAME/Platform.$REPOSITORY_NAME.TemplateLibrary.nuspec"
+CPP_PACKAGE_NUSPEC_PATH="Platform.$REPOSITORY_NAME/Platform.$REPOSITORY_NAME.TemplateLibrary.nuspec"
 echo "$CPP_PACKAGE_NUSPEC_PATH"
 echo "$CPP_PACKAGE_NUSPEC_PATH" > CPP_PACKAGE_NUSPEC_PATH.txt
 CPP_PACKAGE_VERSION=$(grep -Pzo "<version>[^<>]+</version>" "$CPP_PACKAGE_NUSPEC_PATH" | sed -e 's/<.\?[a-zA-Z]\+>//g' | tr -d '\0')
