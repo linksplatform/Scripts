@@ -20,4 +20,5 @@ fi
 RELEASE_BODY_STRING=$(jq -saR . <<< "$RELEASE_BODY")
 echo "RELEASE_BODY_STRING: $RELEASE_BODY_STRING"
 
-gh release create "${TAG}" "Platform.${GITHUB_REPOSITORY}" -t "${RELEASE_NAME}" -n "${RELEASE_BODY_STRING}"
+zip -r "Platform.${GITHUB_REPOSITORY}.zip" "Platform.${GITHUB_REPOSITORY}"
+gh release create "${TAG}" "Platform.${GITHUB_REPOSITORY}.zip" -t "${RELEASE_NAME}" -n "${RELEASE_BODY_STRING}"
