@@ -17,7 +17,6 @@ if [ "$TAG_ID" != "null" ]; then
     exit 0
 fi
 
-RELEASE_BODY_STRING=$(jq -saR . <<< $RELEASE_BODY)
 RELEASE_BODY_STRING=$(printf $RELEASE_BODY_STRING)
 
 echo "RELEASE_BODY_STRING: $RELEASE_BODY_STRING"
