@@ -17,9 +17,4 @@ if [ "$TAG_ID" != "null" ]; then
     exit 0
 fi
 
-RELEASE_BODY_STRING=$(printf "$RELEASE_BODY")
-
-echo "RELEASE_BODY_STRING: $RELEASE_BODY_STRING"
-printf "RELEASE_BODY_STRING: $RELEASE_BODY_STRING"
-
-gh release create "${TAG}" -t "${RELEASE_NAME}" -n "${RELEASE_BODY_STRING}"
+gh release create "${TAG}" -t "${RELEASE_NAME}" -n "${RELEASE_BODY}"
