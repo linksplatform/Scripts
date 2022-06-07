@@ -23,5 +23,4 @@ RELEASE_BODY_STRING=$(printf "$RELEASE_BODY_STRING")
 echo "RELEASE_BODY_STRING: $RELEASE_BODY_STRING"
 printf "RELEASE_BODY_STRING: $RELEASE_BODY_STRING"
 
-zip -r "Platform.${REPOSITORY_NAME}.zip" "Platform.${REPOSITORY_NAME}"
-gh release create "${TAG}" "Platform.${REPOSITORY_NAME}.zip" -t "${RELEASE_NAME}" -n "${RELEASE_BODY_STRING}"
+gh release create "${TAG}" -t "${RELEASE_NAME}" -n "${RELEASE_BODY_STRING}"
