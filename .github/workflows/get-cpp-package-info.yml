@@ -35,8 +35,8 @@ jobs:
         run: |
           version=$(grep -Pzo "<version>[^<>]+</version>" "$CPP_PACKAGE_NUSPEC_PATH" | sed -e 's/<.\?[a-zA-Z]\+>//g' | tr -d '\0')
           echo "versino=${version}" >> $GITHUB_OUTPUT
-      - name: Get version
-        id: get_version
+      - name: Get release notes
+        id: get_release_notes
         run: |
           release_notes=$(grep -Pzo "<releaseNotes>[^<>]+</releaseNotes>" "$CPP_PACKAGE_NUSPEC_PATH" | sed -e 's/<.\?[a-zA-Z]\+>//g' | tr -d '\0')
           echo "release_notes=${release_notes}" >> $GITHUB_OUTPUT
