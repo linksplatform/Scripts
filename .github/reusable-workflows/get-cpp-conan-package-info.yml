@@ -20,5 +20,5 @@ jobs:
 #       - name: Get package name
 #         id: getPackageName
 #         run: |
-#           #export PACKAGE_NAME="platform.$(echo ${{needs.get_package_info.outputs}} | tr '[:upper:]' '[:lower:]')"
+#           #PACKAGE_NAME="platform.$(echo ${{needs.get_package_info.outputs}} | tr '[:upper:]' '[:lower:]')"
 #           #echo "packageName=${PACKAGE_NAME}" >> $GITHUB_OUTPUT

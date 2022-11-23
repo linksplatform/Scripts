@@ -28,7 +28,7 @@ jobs:
       - name: Get nuspec path
         id: get_nuspec_path
         run: |
-          export nuspec_path="Platform.$REPOSITORY_NAME/Platform.$REPOSITORY_NAME.TemplateLibrary.nuspec"
+          nuspec_path="Platform.$REPOSITORY_NAME/Platform.$REPOSITORY_NAME.TemplateLibrary.nuspec"
           echo "nuspec_path=${nuspec_path}" >> $GITHUB_OUTPUT
       - name: Get version
         id: get_version
