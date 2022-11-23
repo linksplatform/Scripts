@@ -6,7 +6,7 @@ on:
         value: ${{ jobs.get_conan_package_info.outputs.package_name }}
         
 env:
-  REPOSITORY_NAME: ${{basename ${{ github.repository }}}}
+  REPOSITORY_NAME: $(basename ${{ github.repository }})
         
 jobs:
   get_package_info:
