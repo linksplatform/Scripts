@@ -1,7 +1,7 @@
 on:
   workflow_call:
     outputs:
-      nuspec_path:
+      package_name:
         description: "The conan package name"
         value: ${{ jobs.get_conan_package_info.outputs.package_name }}
         
