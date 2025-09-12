@@ -1,0 +1,137 @@
+name: Use Uniform Files Workflow
+
+on:
+  schedule:
+    # Run every day at 00:00 UTC to check for updates
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    # Allow manual trigger
+
+jobs:
+  update-uniform-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          submodules: recursive
+
+      - name: Check if Scripts submodule exists
+        id: check-submodule
+        run: |
+          if [ -d "Scripts" ] && [ -f "Scripts/.gitignore" ]; then
+            echo "submodule_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "submodule_exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Add Scripts submodule if not exists
+        if: steps.check-submodule.outputs.submodule_exists == 'false'
+        run: |
+          git submodule add https://github.com/linksplatform/Scripts.git Scripts
+
+      - name: Update Scripts submodule
+        run: |
+          cd Scripts
+          git fetch origin
+          git checkout main
+          git pull origin main
+          cd ..
+
+      - name: Check for uniform files updates
+        id: check-updates
+        run: |
+          files_updated=false
+          
+          # Check .gitignore
+          if [ -f "Scripts/.gitignore" ] && ( ! [ -f ".gitignore" ] || ! cmp -s "Scripts/.gitignore" ".gitignore" ); then
+            echo "Updating .gitignore"
+            cp "Scripts/.gitignore" ".gitignore"
+            files_updated=true
+          fi
+          
+          # Check .clangformat
+          if [ -f "Scripts/.clangformat" ] && ( ! [ -f ".clangformat" ] || ! cmp -s "Scripts/.clangformat" ".clangformat" ); then
+            echo "Updating .clangformat"
+            cp "Scripts/.clangformat" ".clangformat"
+            files_updated=true
+          fi
+          
+          # Check .editorconfig  
+          if [ -f "Scripts/.editorconfig" ] && ( ! [ -f ".editorconfig" ] || ! cmp -s "Scripts/.editorconfig" ".editorconfig" ); then
+            echo "Updating .editorconfig"
+            cp "Scripts/.editorconfig" ".editorconfig"
+            files_updated=true
+          fi
+          
+          echo "files_updated=$files_updated" >> $GITHUB_OUTPUT
+
+      - name: Create symlinks for uniform files (alternative approach)
+        if: steps.check-updates.outputs.files_updated == 'true'
+        run: |
+          # Remove existing files and create symlinks instead (optional approach)
+          # This ensures files stay in sync automatically
+          
+          # Uncomment the following lines if you prefer symlinks over copying:
+          # [ -f ".gitignore" ] && rm ".gitignore" && ln -s "Scripts/.gitignore" ".gitignore"
+          # [ -f ".clangformat" ] && rm ".clangformat" && ln -s "Scripts/.clangformat" ".clangformat"  
+          # [ -f ".editorconfig" ] && rm ".editorconfig" && ln -s "Scripts/.editorconfig" ".editorconfig"
+          
+          echo "Files updated by copying. Consider using symlinks for automatic sync."
+
+      - name: Commit and push changes
+        if: steps.check-updates.outputs.files_updated == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Add submodule changes
+          git add Scripts
+          
+          # Add uniform files changes
+          git add .gitignore .clangformat .editorconfig
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          
+          git commit -m "Update uniform files from Scripts repository
+          
+          - Updated submodule Scripts to latest version
+          - Synchronized uniform files (.gitignore, .clangformat, .editorconfig)
+          
+          🤖 Generated with [GitHub Actions]"
+          
+          git push
+
+      - name: Check uniform files freshness
+        run: |
+          echo "Checking uniform files freshness..."
+          
+          # Check if uniform files are up to date with Scripts repository
+          files_fresh=true
+          
+          if [ -f "Scripts/.gitignore" ] && [ -f ".gitignore" ] && ! cmp -s "Scripts/.gitignore" ".gitignore"; then
+            echo "⚠️  .gitignore is not fresh"
+            files_fresh=false
+          fi
+          
+          if [ -f "Scripts/.clangformat" ] && [ -f ".clangformat" ] && ! cmp -s "Scripts/.clangformat" ".clangformat"; then
+            echo "⚠️  .clangformat is not fresh"
+            files_fresh=false
+          fi
+          
+          if [ -f "Scripts/.editorconfig" ] && [ -f ".editorconfig" ] && ! cmp -s "Scripts/.editorconfig" ".editorconfig"; then
+            echo "⚠️  .editorconfig is not fresh"
+            files_fresh=false
+          fi
+          
+          if [ "$files_fresh" = true ]; then
+            echo "✅ All uniform files are fresh"
+          else
+            echo "❌ Some uniform files are not fresh"
+            exit 1
+          fi
