@@ -9,6 +9,10 @@ SHA=$(git rev-parse --verify HEAD)
 COMMIT_USER_NAME="linksplatform"
 COMMIT_USER_EMAIL="linksplatformtechnologies@gmail.com"
 REPOSITORY="github.com/linksplatform/$REPOSITORY_NAME"
+SETTINGS_BASE_URL="https://raw.githubusercontent.com/linksplatform/Settings/main"
+
+# Download configuration files from Settings repository
+wget "$SETTINGS_BASE_URL/toc.yml"
 
 # Insert repository name into DocFX's configuration files
 sed -i "s/\$REPOSITORY_NAME/$REPOSITORY_NAME/g" toc.yml

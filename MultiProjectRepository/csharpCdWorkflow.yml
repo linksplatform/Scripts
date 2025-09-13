@@ -10,6 +10,7 @@ env:
   NUGETTOKEN: ${{ secrets.NUGET_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SCRIPTS_BASE_URL: https://raw.githubusercontent.com/linksplatform/Scripts/main/MultiProjectRepository
+  SETTINGS_BASE_URL: https://raw.githubusercontent.com/linksplatform/Settings/main
   
 defaults:
   run:
@@ -129,7 +130,7 @@ jobs:
       run: |
         export REPOSITORY_NAME=$(basename ${{ github.repository }})
         wget "$SCRIPTS_BASE_URL/docfx.json"
-        wget "$SCRIPTS_BASE_URL/filter.yml"
-        wget "$SCRIPTS_BASE_URL/toc.yml"
+        wget "$SETTINGS_BASE_URL/filter.yml"
+        wget "$SETTINGS_BASE_URL/toc.yml"
         wget "$SCRIPTS_BASE_URL/publish-csharp-docs.sh"
         bash ./publish-csharp-docs.sh

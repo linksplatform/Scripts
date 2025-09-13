@@ -1,5 +1,0 @@
-apiRules:
-- exclude:
-    uidRegex: (Tests|Benchmarks)(\.[A-Za-z]+)?$
-- exclude:
-    uidRegex: CSharpToCppTranslator$
