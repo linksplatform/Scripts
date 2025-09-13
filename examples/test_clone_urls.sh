@@ -63,9 +63,9 @@ fetch_all_repositories() {
 
 clone() {
   clone_url=$(printf ${clone_url_with_double_quotes} | perl -pe 's~"(?<clone_url>.*)"~$+{clone_url}~g');
-  echo "Cloning $clone_url_with_double_quotes..."
-  git clone --recurse-submodules -j8 ${clone_url};
-  echo "Done cloning $clone_url_with_double_quotes."
+  echo "Would clone $clone_url_with_double_quotes..."
+  echo "  -> ${clone_url}";
+  echo "  Done."
 }
 
 # Fetch all repositories using pagination

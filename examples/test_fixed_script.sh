@@ -1,4 +1,16 @@
 #!/bin/bash
+# Test the fixed script
+
+echo "Testing the fixed script functionality..."
+
+cd /tmp/gh-issue-solver-1757725240169
+
+# Create a test version that doesn't clone
+cp Utils/CloneAllOrganizationRepositoriesByHTTPS.sh examples/test_fixed_clone_script.sh
+
+# Replace the clone function to just echo the first few URLs
+cat > examples/test_fixed_clone_script_modified.sh << 'EOF'
+#!/bin/bash
 # Make sure curl, perl and jq are installed
 
 if [ -z "$1" ]
@@ -61,18 +73,19 @@ fetch_all_repositories() {
   rm -rf "$temp_dir"
 }
 
-clone() {
-  clone_url=$(printf ${clone_url_with_double_quotes} | perl -pe 's~"(?<clone_url>.*)"~$+{clone_url}~g');
-  echo "Cloning $clone_url_with_double_quotes..."
-  git clone --recurse-submodules -j8 ${clone_url};
-  echo "Done cloning $clone_url_with_double_quotes."
-}
-
 # Fetch all repositories using pagination
 repositories_json=$(fetch_all_repositories "$1")
 
-for clone_url_with_double_quotes in $( printf "${repositories_json}" | jq '.[] | .clone_url' )
-do
-  clone
-done;
-wait;
+# Test: just show the count and first few repository names
+echo "Repository count: $(echo "$repositories_json" | jq length)" >&2
+echo "First 5 repositories:" >&2
+echo "$repositories_json" | jq -r '.[0:5] | .[] | .name' >&2
+
+echo "Test completed successfully!" >&2
+EOF
+
+chmod +x examples/test_fixed_clone_script_modified.sh
+
+echo ""
+echo "Running fixed test script..."
+./examples/test_fixed_clone_script_modified.sh linksplatform

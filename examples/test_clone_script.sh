@@ -15,15 +15,15 @@ fetch_all_repositories() {
   local temp_dir=$(mktemp -d)
   local repo_files=()
   
-  echo "Fetching repositories for organization: $org" >&2
+  echo "Fetching repositories for organization: $org"
   
   while true; do
-    echo "Fetching page $page..." >&2
+    echo "Fetching page $page..."
     local response=$(curl -s -H "Accept: application/vnd.github.v3+json" "https://api.github.com/orgs/$org/repos?per_page=$per_page&page=$page")
     
     # Check if the response is valid JSON and not empty
     if ! echo "$response" | jq . >/dev/null 2>&1; then
-      echo "Invalid JSON response, stopping pagination" >&2
+      echo "Invalid JSON response, stopping pagination"
       break
     fi
     
@@ -37,7 +37,7 @@ fetch_all_repositories() {
     echo "$response" > "$page_file"
     repo_files+=("$page_file")
     
-    echo "Found $repo_count repositories on page $page" >&2
+    echo "Found $repo_count repositories on page $page"
     
     # If we got fewer repositories than per_page, we've reached the end
     if [ "$repo_count" -lt "$per_page" ]; then
@@ -64,7 +64,7 @@ fetch_all_repositories() {
 clone() {
   clone_url=$(printf ${clone_url_with_double_quotes} | perl -pe 's~"(?<clone_url>.*)"~$+{clone_url}~g');
   echo "Cloning $clone_url_with_double_quotes..."
-  git clone --recurse-submodules -j8 ${clone_url};
+  echo "Would clone: ${clone_url}";
   echo "Done cloning $clone_url_with_double_quotes."
 }
 
