@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFrameworks>net472;netcoreapp3.0</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <Target Name="CSharpToCppTranslation" AfterTargets="PostBuildEvent" Condition="'$(OS)' == 'Windows_NT' AND $(TargetFramework) == 'netcoreapp3.0'">
+    <Exec Command="..\..\CSharpToCppTranslator\bin\$(Configuration)\netcoreapp3.0\CSharpToCppTranslator.exe $(ProjectDir) $(SolutionDir)cpp\$(ProjectName)\ .cs .cpp"></Exec>
+  </Target>
+
+</Project>
