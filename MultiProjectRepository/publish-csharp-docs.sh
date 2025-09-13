@@ -10,6 +10,9 @@ COMMIT_USER_NAME="linksplatform"
 COMMIT_USER_EMAIL="linksplatformtechnologies@gmail.com"
 REPOSITORY="github.com/linksplatform/$REPOSITORY_NAME"
 
+# Load DocFX configuration files
+../Utils/LoadDocfxFiles.sh .
+
 # Insert repository name into DocFX's configuration files
 sed -i "s/\$REPOSITORY_NAME/$REPOSITORY_NAME/g" toc.yml
 sed -i "s/\$REPOSITORY_NAME/$REPOSITORY_NAME/g" docfx.json
